@@ -106,6 +106,8 @@ With the infrastructure working, the next step was to simulate an attack.
 
 From the Kali machine I generated repeated SSH login attempts against the Ubuntu target.
 
+<img src="images/bruteforce.png" alt="Alt Text" width="600" height="600">
+
 Each failed login attempt produced entries in the authentication log which were collected by the Wazuh agent.
 
 ### Default Detection Behaviour
@@ -200,9 +202,14 @@ This ensured that the rule only triggered **after the original SSH authenticatio
 
 This approach preserved proper event correlation rather than generating isolated alerts.
 
+<img src="images/rules.png" alt="Alt Text" width="600" height="600">
+
 ### Validation
 
 Repeated SSH login attempts were generated from Kali.
+
+<img src="images/3time.png" alt="Alt Text" width="600" height="600">
+<img src="images/level12.png" alt="Alt Text" width="800" height="800">
 
 Results:
 
@@ -261,6 +268,7 @@ The response was then linked to the custom rule.
   <timeout>600</timeout>
 </active-response>
 ```
+<img src="images/bruteforcefailed.png" alt="Alt Text" width="600" height="600">
 
 ### Behaviour
 
@@ -277,6 +285,8 @@ Verification steps included:
 • Attempting to SSH again from Kali
 
 The SSH connection **hung and timed out**, confirming the block worked.
+
+<img src="images/timeout.png" alt="Alt Text" width="600" height="600">
 
 ### Timeout
 
@@ -319,15 +329,3 @@ The final system successfully:
 • Restores access after a timeout  
 
 This project moved beyond simply viewing alerts and instead focused on **engineering a defensive detection and response pipeline similar to what would be implemented in a real SOC environment.**
-
----
-
-# Evidence
-
-Screenshots included in the repository demonstrate:
-
-• Lab network architecture  
-• Wazuh dashboard alerts  
-• Custom rule triggers  
-• Active response execution  
-• Firewall block behaviour
